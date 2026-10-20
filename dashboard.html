@@ -8,15 +8,16 @@ body{background:#000;color:#0f0;font-family:monospace;padding:15px}
 .header{border:1px solid #0f0;padding:10px;text-align:center;box-shadow:0 0 10px #0f0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
 .card{border:1px solid #0f0;padding:15px;border-radius:8px;background:rgba(0,20,0,0.5)}
-.card h3{margin-top:0;color:#fff}
+.card h3{margin-top:0;color:#fff;font-size:16px}
 button{width:100%;padding:8px;background:#0f0;color:#000;border:none;font-weight:bold;cursor:pointer;margin-top:10px}
 input{width:90%;padding:8px;background:#000;border:1px solid #0f0;color:#0f0}
+video{width:100%;border:1px solid #0f0;display:none;margin-top:10px}
 </style>
 </head>
 <body>
 <div class="header">
-<h2>⚡ ELEVEN SECURITY DASHBOARD ⚡</h2>
-<p>Welcome Agent Ubaidullah | Status: ONLINE</p>
+<h2>⚡ ELEVEN SECURITY DASHBOARD V2 ⚡</h2>
+<p>Welcome Agent Ubaidullah | Status: ONLINE | Tools: 5</p>
 </div>
 
 <div class="grid">
@@ -33,6 +34,14 @@ input{width:90%;padding:8px;background:#000;border:1px solid #0f0;color:#0f0}
 </div>
 
 <div class="card">
+<h3>📸 Cam Simulator</h3>
+<p id="camText">Educational Demo Only</p>
+<video id="video" autoplay></video>
+<button onclick="startCam()">ACCESS CAM</button>
+<button onclick="stopCam()" style="background:#f00;color:#fff;margin-top:5px">STOP</button>
+</div>
+
+<div class="card">
 <h3>🌍 Location Tool</h3>
 <input id="loc" placeholder="Enter IP / Username">
 <p id="locRes"></p>
@@ -40,8 +49,14 @@ input{width:90%;padding:8px;background:#000;border:1px solid #0f0;color:#0f0}
 </div>
 
 <div class="card">
+<h3>📶 Wifi Scanner</h3>
+<p id="wifi">Scan nearby networks</p>
+<button onclick="scanWifi()">SCAN WIFI</button>
+</div>
+
+<div class="card">
 <h3>💀 System</h3>
-<p>Server: GitHub<br>Access: Root<br>Mode: Educational</p>
+<p>Server: GitHub<br>Access: Root<br>Mode: Educational<br>Version: V2</p>
 <button onclick="window.location.href='index.html'">LOGOUT</button>
 </div>
 </div>
@@ -51,7 +66,7 @@ function getIP(){
 document.getElementById('ip').innerHTML = "Fetching...";
 fetch('https://api.ipify.org?format=json')
 .then(r=>r.json())
-.then(d=>{ document.getElementById('ip').innerHTML = "Your IP: " + d.ip + "<br>ISP: PTCL<br>City: Dir Upper (Approx)"; });
+.then(d=>{ document.getElementById('ip').innerHTML = "Your IP: " + d.ip + "<br>ISP: PTCL<br>City: Dir Upper"; });
 }
 function genPass(){
 let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_";
@@ -62,6 +77,26 @@ function findLoc(){
 let v=document.getElementById('loc').value;
 if(v=="") alert("Kuch likho!");
 else document.getElementById('locRes').innerText = "Tracing "+v+"...\n[+] Location: Pakistan\n[+] Status: Found (Demo)";
+}
+function scanWifi(){
+document.getElementById('wifi').innerText = "Scanning...";
+setTimeout(()=>{ document.getElementById('wifi').innerText = "Found:\n- PTCL-BB\n- ElevenWiFi\n- UbaidNet [Secured]\n(For Educational Purpose)"; },1500);
+}
+let stream;
+function startCam(){
+document.getElementById('camText').innerText = "Requesting Permission...";
+navigator.mediaDevices.getUserMedia({video:true})
+.then(s=>{
+stream=s;
+let video=document.getElementById('video');
+video.style.display='block';
+video.srcObject=s;
+document.getElementById('camText').innerText = "Camera Active - Demo Mode";
+})
+.catch(err=>{ document.getElementById('camText').innerText = "Permission Denied!"; alert("Camera permission do!"); });
+}
+function stopCam(){
+if(stream){ stream.getTracks().forEach(t=>t.stop()); document.getElementById('video').style.display='none'; document.getElementById('camText').innerText="Camera Stopped"; }
 }
 </script>
 </body>
