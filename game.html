@@ -1,0 +1,20 @@
+<html>
+<body style="text-align:center;padding-top:50px">
+<h2>Number Guess Game</h2>
+<p>1 se 10 tak guess karo!</p>
+<input id="n" type="number">
+<button onclick="check()">Check</button>
+<p id="res"></p>
+<script>
+let s=7;
+function check(){
+let g=document.getElementById('n').value;
+let r=document.getElementById('res');
+if(g==s){r.innerText="Mubarak ho! Jeet gaye Ubaid! 🎉"; r.style.color="green"}
+else{r.innerText="Ghalat hai, try again!"; r.style.color="red"}
+}
+</script>
+<br><br>
+<a href="index.html">Back to Home</a>
+</body>
+</html>
