@@ -1,11 +1,65 @@
+<!DOCTYPE html>
 <html>
-<body style="text-align:center;background:black;color:lime;padding-top:60px;font-family:sans-serif">
-<h1>Ubaid Khan</h1>
-<p>Ethical Hacker from Peshawar</p>
-<p>Learning Web Development & Hacking</p>
-<br>
-<a href="game.html" style="color:yellow;font-size:20px">🎮 Play My Game</a>
-<br><br><br>
-<p style="color:gray">My First Permanent Website</p>
+<head>
+<title>Eleven Security Lab | Ubaid Khan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { background: black; color: #00ff00; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+.matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.2; }
+.login-box { border: 2px solid #00ff00; padding: 30px; border-radius: 10px; background: rgba(0,20,0,0.8); box-shadow: 0 0 20px #00ff00; text-align: center; width: 300px; }
+h2 { text-shadow: 0 0 10px #00ff00; }
+input { width: 90%; padding: 12px; margin: 10px 0; background: black; border: 1px solid #00ff00; color: #00ff00; border-radius: 5px; outline: none; }
+button { width: 95%; padding: 12px; background: #00ff00; color: black; border: none; font-weight: bold; font-size: 16px; border-radius: 5px; cursor: pointer; box-shadow: 0 0 10px #00ff00; }
+button:hover { background: black; color: #00ff00; border: 1px solid #00ff00; }
+.footer { margin-top: 15px; font-size: 11px; color: #888; }
+</style>
+</head>
+<body>
+
+<canvas class="matrix" id="canvas"></canvas>
+
+<div class="login-box">
+<h2>[ ELEVEN LAB ]</h2>
+<p>Authorized Access Only</p>
+<input type="text" id="user" placeholder="Username">
+<input type="password" id="pass" placeholder="Password">
+<button onclick="hack()">ACCESS SYSTEM</button>
+<p id="msg" style="margin-top:15px; color:lime;"></p>
+<div class="footer">Created by Ubaidullah  | Dir Upper<br>For Educational Purpose Only</div>
+</div>
+
+<script>
+// Matrix effect
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+const letters = "010101 ELEVEN UBAID KHAN";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = [];
+for(let x=0; x<columns; x++) drops[x]=1;
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)"; ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#0f0"; ctx.font=fontSize+"px monospace";
+for(let i=0;i<drops.length;i++){
+const text = letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i]=0;
+drops[i]++;
+}
+}
+setInterval(draw,33);
+
+function hack(){
+let u = document.getElementById('user').value;
+let p = document.getElementById('pass').value;
+let msg = document.getElementById('msg');
+if(u=="" || p==""){
+msg.innerHTML = "[!] Username / Password Required";
+return;
+}
+msg.innerHTML = "[*] Bypassing Firewall...<br>[*] Checking Credentials...<br>[✓] Access Granted! Welcome " + u;
+}
+</script>
 </body>
 </html>
