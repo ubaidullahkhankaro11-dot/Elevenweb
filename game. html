@@ -1,6 +1,0 @@
-<html><body style="text-align:center; padding-top:50px;">
-<h2>Number Guess Game</h2>
-<input id="n" type="number"><button onclick="check()">Check</button>
-<p id="res"></p>
-<script>let s=7;function check(){let g=document.getElementById('n').value;document.getElementById('res').innerText=g==s?"Jeet gaye Ubaid!":"Try again";}</script>
-</body></html>
